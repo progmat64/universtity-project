@@ -44,6 +44,7 @@ public:
 
     void removeStudent();
     void addStudent();
+    void editStudent(University& university);
 
     class Teacher {
     public:
@@ -71,6 +72,7 @@ public:
 
     void addTeacher();
     void removeTeacher(int index);
+    void editTeacher(University& university);
 
     class Staff {
     public:
@@ -98,6 +100,7 @@ public:
 
     void addStaff();
     void removeStaff(int index);
+    void editStaff(University& university);
 
 
     Student** students;

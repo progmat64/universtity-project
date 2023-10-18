@@ -22,6 +22,10 @@ void Menu(University vuz) {
 	cout << "7) Сохранить данные в файл" << endl;
 	cout << "8) Удалить данные из файла" << endl;
 
+	cout << "9) Изменить данные студента" << endl;
+	cout << "10) Изменить данные преподавателя" << endl;
+	cout << "11) Изменить данные персонала" << endl;
+
 	cout << "0) Выйти" << endl;
 
 	int index = 0;
@@ -65,6 +69,18 @@ void Menu(University vuz) {
 			break;
 		case 8:
 			keeper.removeUniversityData();
+			break;
+		case 9:
+			vuz.editStudent(vuz);
+			vuz.printStudents();
+			break;
+		case 10:
+			vuz.editTeacher(vuz);
+			vuz.printTeachers();
+			break;
+		case 11:
+			vuz.editStaff(vuz);
+			vuz.printStaff();
 			break;
 		case 0:
 			exit(0);
