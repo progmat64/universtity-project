@@ -83,6 +83,32 @@ public:
 			cout << "Средний балл: " << averageGrade << endl;
 		}
 
+		void setName(const char* name) {
+			delete[] this->name;
+			this->name = new char[strlen(name) + 1];
+			strcpy(this->name, name);
+		}
+
+		void setGroup(const char* group) {
+			delete[] this->group;
+			this->group = new char[strlen(group) + 1];
+			strcpy(this->group, group);
+		}
+
+		void setSpecialty(const char* specialty) {
+			delete[] this->specialty;
+			this->specialty = new char[strlen(specialty) + 1];
+			strcpy(this->specialty, specialty);
+		}
+
+		void setCourse(int course) {
+			this->course = course;
+		}
+
+		void setAverageGrade(double averageGrade) {
+			this->averageGrade = averageGrade;
+		}
+
 		const char* getName() const { return name; }
 		const char* getGroup() const { return group; }
 		const char* getSpecialty() const { return specialty; }
@@ -112,6 +138,7 @@ public:
 		double averageGrade;
 
 		cout << "Введите имя студента: ";
+		cin.ignore();
 		cin.getline(name, 100);
 		cout << "Введите группу студента: ";
 		cin.getline(group, 100);
@@ -192,6 +219,30 @@ public:
 			std::cout << std::endl << std::endl;
 		}
 
+		void setName(const char* name) {
+			delete[] this->name;
+			this->name = new char[strlen(name) + 1];
+			strcpy(this->name, name);
+		}
+
+		void setGroups(const char** groups, int groupCount) {
+			for (int i = 0; i < groupCount; i++) {
+				delete[] this->groups[i];
+				this->groups[i] = new char[strlen(groups[i]) + 1];
+				strcpy(this->groups[i], groups[i]);
+			}
+			this->groupCount = groupCount;
+		}
+
+		void setSubjects(const char** subjects, int subjectCount) {
+			for (int i = 0; i < subjectCount; i++) {
+				delete[] this->subjects[i];
+				this->subjects[i] = new char[strlen(subjects[i]) + 1];
+				strcpy(this->subjects[i], subjects[i]);
+			}
+			this->subjectCount = subjectCount;
+		}
+
 		const char* getName() const { return name; }
 		char** getGroups() const { return groups; }
 		int getGroupCount() const { return groupCount; }
@@ -206,15 +257,40 @@ public:
 		int subjectCount;
 	};
 
-	void addTeacher(const char* name, const char** groups, int groupCount, const char** subjects, int subjectCount) {
-		Teacher* teacher = new Teacher(name, groups, groupCount, subjects, subjectCount);
+	void addTeacher() {
+		char* name = new char[100];
+		cout << "Enter teacher's name: ";
+		cin.ignore();
+		cin.getline(name, 100);
 
+		int groupCount;
+		cout << "Enter the number of groups: ";
+		cin >> groupCount;
+		const char** groups = new const char* [groupCount];
+		cout << "Enter the group names: ";
+		for (int i = 0; i < groupCount; i++) {
+			char* groupName = new char[100];
+			cin >> groupName;
+			groups[i] = groupName;
+		}
+
+		int subjectCount;
+		cout << "Enter the number of subjects: ";
+		cin >> subjectCount;
+		const char** subjects = new const char* [subjectCount];
+		cout << "Enter the subject names: ";
+		for (int i = 0; i < subjectCount; i++) {
+			char* subjectName = new char[100];
+			cin >> subjectName;
+			subjects[i] = subjectName;
+		}
+
+		Teacher* teacher = new Teacher(name, groups, groupCount, subjects, subjectCount);
 		Teacher** newTeachers = new Teacher * [teacherCount + 1];
 		for (int i = 0; i < teacherCount; i++) {
 			newTeachers[i] = teachers[i];
 		}
 		newTeachers[teacherCount] = teacher;
-
 		delete[] teachers;
 		teachers = newTeachers;
 		teacherCount++;
@@ -224,13 +300,10 @@ public:
 		if (teacherCount == 0) {
 			throw UniversityException("Нет учителей для удаления.");
 		}
-
 		if (index < 0 || index >= teacherCount) {
 			throw UniversityException("Неправильный индекс учителя.");
 		}
-
 		Teacher* teacher = teachers[index];
-
 		Teacher** newTeachers = new Teacher * [teacherCount - 1];
 		int j = 0;
 		for (int i = 0; i < teacherCount; i++) {
@@ -240,7 +313,6 @@ public:
 			}
 		}
 		delete teacher;
-
 		delete[] teachers;
 		teachers = newTeachers;
 		teacherCount--;
@@ -271,6 +343,30 @@ public:
 			delete[] responsibility;
 		}
 
+		void setName(const char* name) {
+			delete[] this->name;
+			this->name = new char[strlen(name) + 1];
+			strcpy(this->name, name);
+		}
+
+		void setPosition(const char* position) {
+			delete[] this->position;
+			this->position = new char[strlen(position) + 1];
+			strcpy(this->position, position);
+		}
+
+		void setPhone(const char* phone) {
+			delete[] this->phone;
+			this->phone = new char[strlen(phone) + 1];
+			strcpy(this->phone, phone);
+		}
+
+		void setResponsibility(const char* responsibility) {
+			delete[] this->responsibility;
+			this->responsibility = new char[strlen(responsibility) + 1];
+			strcpy(this->responsibility, responsibility);
+		}
+
 		void print() {
 			std::cout << "Административный персонал: " << name << std::endl;
 			std::cout << "Должность: " << position << std::endl;
@@ -283,7 +379,6 @@ public:
 		const char* getPhone() const { return phone; }
 		const char* getResponsibility() const { return responsibility; }
 
-
 	private:
 		char* name;
 		char* position;
@@ -291,15 +386,31 @@ public:
 		char* responsibility;
 	};
 
-	void addStaff(const char* name, const char* position, const char* phone, const char* responsibility) {
-		Staff* staffMember = new Staff(name, position, phone, responsibility);
+	void addStaff() {
+		char name[100];
+		char position[100];
+		char phone[100];
+		char responsibility[100];
 
+		cout << "Enter name: ";
+		cin.ignore();
+		cin.getline(name, 100);
+
+		cout << "Enter position: ";
+		cin.getline(position, 100);
+
+		cout << "Enter phone: ";
+		cin.getline(phone, 100);
+
+		cout << "Enter responsibility: ";
+		cin.getline(responsibility, 100);
+
+		Staff* staffMember = new Staff(name, position, phone, responsibility);
 		Staff** newStaff = new Staff * [staffCount + 1];
 		for (int i = 0; i < staffCount; i++) {
 			newStaff[i] = staff[i];
 		}
 		newStaff[staffCount] = staffMember;
-
 		delete[] staff;
 		staff = newStaff;
 		staffCount++;
@@ -309,13 +420,10 @@ public:
 		if (staffCount == 0) {
 			throw UniversityException("Нет сотрудников для удаления.");
 		}
-
 		if (index < 0 || index >= staffCount) {
 			throw UniversityException("Неправильный индекс сотрудника.");
 		}
-
 		Staff* staffMember = staff[index];
-
 		Staff** newStaff = new Staff * [staffCount - 1];
 		int j = 0;
 		for (int i = 0; i < staffCount; i++) {
@@ -326,7 +434,6 @@ public:
 		}
 
 		delete staffMember;
-
 		delete[] staff;
 		staff = newStaff;
 		staffCount--;
@@ -334,17 +441,14 @@ public:
 
 	Student** students;
 	int studentCount;
-
 	Teacher** teachers;
 	int teacherCount;
-
 	Staff** staff;
 	int staffCount;
 };
 
 class Keeper : University {
 public:
-
 	void saveUniversity(const University& university) {
 		ofstream file("university.txt", ios::app);
 		if (!file.is_open()) {
@@ -394,29 +498,76 @@ public:
 	}
 };
 
+void Menu(University vuz) {
+	Keeper keeper;
+	int choose = 1;
+	cout << "1) Добавить студента" << endl;
+	cout << "2) Удалить студента" << endl;
+
+	cout << "3) Добавить преподавателя" << endl;
+	cout << "4) Удалить преподавателя" << endl;
+
+	cout << "5) Добавить персонал" << endl;
+	cout << "6) Удалить персонал" << endl;
+
+	cout << "7) Сохранить данные в файл" << endl;
+	cout << "8) Удалить данные из файла" << endl;
+
+	cout << "0) Выйти" << endl;
+	
+	int index = 0;
+
+	while (choose != 0)
+	{
+		cout << "Team number ";
+		cin >> choose;
+		switch (choose)
+		{
+		case 1:
+			vuz.addStudent();
+			vuz.printStudents();
+			break;
+		case 2:
+			vuz.removeStudent();
+			vuz.printStudents();
+			break;
+		case 3:
+			vuz.addTeacher();
+			vuz.printTeachers();
+			break;
+		case 4:
+			cout << "index = ";
+			cin >> index;
+			vuz.removeTeacher(index);
+			vuz.printTeachers(); 
+			break;
+		case 5:
+			vuz.addStaff();
+			vuz.printStaff();
+			break;
+		case 6:
+			cout << "index = ";
+			cin >> index;
+			vuz.removeStaff(index);
+			vuz.printStaff();
+			break;
+		case 7:
+			keeper.saveUniversity(vuz);
+			break;
+		case 8:
+			keeper.removeUniversityData();
+			break;
+		case 0:
+			exit(0);
+		default:
+			cout << "Неправильный выбор" << endl;
+			break;
+		}
+	}
+}
 
 int main() {
-	setlocale(LC_ALL, "Russian");
 	system("chcp 1251");
 	University suai;
-
-	const char* teacherGroups[] = { "Group A", "Group B", "Group C" };
-	const char* teacherSubjects[] = { "Subject 1", "Subject 2", "Subject 3" };
-
-	try {
-		suai.addTeacher("Иванов", teacherGroups, 2, teacherSubjects, 2);
-		suai.printTeachers();
-
-		suai.printTeachers();
-
-		suai.addStaff("Петров", "Администратор", "+123456789", "Управление зданием");
-
-	}
-	catch (UniversityException& ex) {
-		cout << "Ошибка: " << ex.what() << endl;
-	}
-
-	Keeper keeper;
-	keeper.saveUniversity(suai);
-	keeper.removeUniversityData();
+	Menu(suai);
 }
