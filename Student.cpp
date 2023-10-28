@@ -6,6 +6,11 @@ using namespace std;
 Student::Student() {}
 Student::~Student() {}
 
+Student::Student(string name)
+{
+    this->name = name;
+}
+
 Student::Student(const Student& Student_copy)
 {
     name = Student_copy.name;
@@ -13,11 +18,6 @@ Student::Student(const Student& Student_copy)
     specialty = Student_copy.specialty;
     course = Student_copy.course;
     averageGrade = Student_copy.averageGrade;
-}
-
-Student::Student(string name)
-{
-    this->name = name;
 }
 
 string Student::get_name() const { return name; }
