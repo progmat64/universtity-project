@@ -1,9 +1,21 @@
 #pragma once
-#include "University.h"
-#include <fstream>
+#include "Library.h"
 
-class Keeper : University {
+class Keeper
+{
+private:
+	int m_size = 0;
+	Element* head = NULL;
 public:
-    void saveUniversity(const University& university);
-    void removeUniversityData();
+	Keeper();
+	Keeper(int size);
+	~Keeper();
+
+	University* operator[] (int index);
+
+	int get_size();
+	void insert(University* n_data);
+	void remove(int index);
+	void save();
+	void load();
 };

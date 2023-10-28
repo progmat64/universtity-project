@@ -1,5 +1,3 @@
-﻿  Keeper.cpp
-  University.cpp
-  main.cpp
-  Создание кода...
+﻿  Menu.cpp
+C:\Users\admin\source\repos\programming_technologies\university-project\Menu.cpp(215,22): warning C4091: : пропускается слева от "std::exception", когда ни одна переменная не объявлена
   university-project.vcxproj -> C:\Users\admin\source\repos\programming_technologies\university-project\x64\Debug\university-project.exe
